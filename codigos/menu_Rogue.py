@@ -3,7 +3,8 @@ def exibirmenu():
     print('1. Jogar')
     print('2. Configurações')
     print('3. Progresso')
-    print('4. Sair')
+    print('4. Ranking')
+    print('5. Sair')
 
 def escolhamenu():
     while True:
