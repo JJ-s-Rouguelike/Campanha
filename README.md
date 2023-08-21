@@ -9,4 +9,6 @@ Repositório principal do jogo
 ---
 <!-- Discord: https://discord.gg/6JUqs9qe -->
 
-agora, no replit e railway
+# agora, no replit e railway
+
+disponivel em: https://replit.com/@Vjfrib/Campanha
