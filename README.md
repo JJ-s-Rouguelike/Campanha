@@ -4,8 +4,8 @@ Repositório principal do jogo
 ---
 
 ## Esqumatização
-<img src="https://github.com/JJ-s-Rouguelike/Campanha/blob/main/planjamento.drawio.svg">
-![plans](https://github.com/JJ-s-Rouguelike/Campanha/blob/main/planjamento.drawio.svg)
+<img src="">
+
 
 ---
 Discord: https://discord.gg/6JUqs9qe
