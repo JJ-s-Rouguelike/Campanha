@@ -1,5 +1,5 @@
 def exibirmenu():
-    print('ROGUE')
+    #print('ROGUE')
     print('1. Jogar')
     print('2. Configurações')
     print('3. Progresso')
