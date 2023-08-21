@@ -1,4 +1,5 @@
 import ranking as rk
+import game
 import os
 
 def exibirmenu():
@@ -18,6 +19,7 @@ def escolhamenu():
 
             if opcao == 1:
                 print('Jogar')
+                game.inicia()
                 break
             elif opcao == 2:
                 print('Configurações')
