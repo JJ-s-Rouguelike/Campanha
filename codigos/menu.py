@@ -1,1 +1,1 @@
-a = input("teste");
+a = input("Adversus et admorsus");
