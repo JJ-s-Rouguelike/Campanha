@@ -1,9 +1,12 @@
 import ranking as rk
 import game
 import os
+import console as cls
+
+cls.clear()
 
 def exibirmenu():
-    os.system("cls")
+    cls.clear()
     print("\tAqui vem a splash\n")
     print('1. Jogar')
     print('2. Configurações')
@@ -41,5 +44,5 @@ def escolhamenu():
             print("Digite um número válido. Tente novamente.")
 
 #Chamadas
-exibirmenu()
+#exibirmenu()
 escolhamenu()

@@ -1,9 +1,9 @@
-
 import os
 
-
+# equivalente ao:
+# def clear_screen():
+#     os.system("cls" if os.name == "nt" else "clear")
 clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
-
 
 def init(lines):
     clear()

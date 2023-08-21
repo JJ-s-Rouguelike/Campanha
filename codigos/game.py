@@ -1,4 +1,5 @@
-import os
+import console as cls
+
 def inicia():
-    os.system("cls")
+    cls.clear()
     print("jogo on")
