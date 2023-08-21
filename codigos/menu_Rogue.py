@@ -22,6 +22,9 @@ def escolhamenu():
                 print('Progresso')
                 break
             elif opcao == 4:
+                print('Ranking')
+                break
+            elif opcao == 5:
                 print('Sair')
                 break
             else:
