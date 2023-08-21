@@ -8,3 +8,5 @@ Repositório principal do jogo
 
 ---
 <!-- Discord: https://discord.gg/6JUqs9qe -->
+
+agora, no replit e railway
