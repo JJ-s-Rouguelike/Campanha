@@ -1,4 +1,9 @@
+import ranking as rk
+import os
+
 def exibirmenu():
+    os.system("cls")
+    print("\tAqui vem a splash\n")
     print('1. Jogar')
     print('2. Configurações')
     print('3. Progresso')
@@ -22,6 +27,8 @@ def escolhamenu():
                 break
             elif opcao == 4:
                 print('Ranking')
+                # call da função de ranking no arquivo correto
+                rk.exibir()
                 break
             elif opcao == 5:
                 print('Sair')
@@ -30,3 +37,7 @@ def escolhamenu():
                 print("Opção inválida. Tente novamente.")
         except ValueError:
             print("Digite um número válido. Tente novamente.")
+
+#Chamadas
+exibirmenu()
+escolhamenu()
