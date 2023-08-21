@@ -11,4 +11,4 @@ Repositório principal do jogo
 
 # agora, no replit e railway
 
-disponivel em: https://replit.com/@Vjfrib/Campanha
+## disponivel para [https://replit.com/@Vjfrib/Campanha?v=1](JOGAR AGORA!)
