@@ -21,7 +21,6 @@ def escolhamenu():
             if opcao == 1:
                 cls.clear()
                 print('Jogar')
-                # O jogo inicia
                 game.inicia()
                 break
             elif opcao == 2:
@@ -35,7 +34,6 @@ def escolhamenu():
             elif opcao == 4:
                 cls.clear()
                 print('Ranking')
-                # call da função de ranking no arquivo correto
                 rk.exibir()
                 break
             elif opcao == 5:
