@@ -8,9 +8,8 @@ def exibirmenu():
     print("\tAqui vem a splash\n")
     print('1. Jogar')
     print('2. Configurações')
-    print('3. Progresso')
-    print('4. Ranking')
-    print('5. Sair')
+    print('3. Ranking')
+    print('4. Sair')
 
 def escolhamenu():
     while True:
@@ -29,14 +28,10 @@ def escolhamenu():
                 break
             elif opcao == 3:
                 cls.clear()
-                print('Progresso')
-                break
-            elif opcao == 4:
-                cls.clear()
                 print('Ranking')
                 rk.exibir()
                 break
-            elif opcao == 5:
+            elif opcao == 4:
                 cls.clear()
                 print('Sair')
                 break
