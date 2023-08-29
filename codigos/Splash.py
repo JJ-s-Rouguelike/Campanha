@@ -5,11 +5,11 @@ SCREEN_HEIGHT = 600
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Roguelike Splash Screen')
+pygame.display.set_caption('ROGUE - SPLASHSCREEN')
 
 def show_splash():
     font = pygame.font.Font(None, 74)
-    text = font.render('Meu Roguelike', True, (255, 255, 255))
+    text = font.render('ROGUE', True, (255, 255, 255))
     text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
 
     running = True
