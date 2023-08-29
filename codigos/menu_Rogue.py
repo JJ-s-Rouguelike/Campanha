@@ -46,5 +46,5 @@ def escolhamenu():
 
 #Chamadas
 cls.clear()
-exibirmenu()    # precisa de ua primeira chamada
+exibirmenu()    # precisa de uma primeira chamada
 escolhamenu()
