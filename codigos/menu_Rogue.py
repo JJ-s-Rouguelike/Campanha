@@ -1,8 +1,3 @@
-import ranking as rk
-import game
-import os
-import console as cls
-
 def exibirmenu():
     print("\tAqui vem a splash\n")
     print('1. Jogar')
