@@ -1,4 +1,4 @@
-def splashscreen():  
+def splash():  
 
     largura = 50
 
@@ -21,6 +21,6 @@ def splashscreen():
     splashcentralizada('BOA SORTE, AVENTUREIRO.') 
     borda()
 
-splashscreen()
+splash()
 
-# Splashscreen básica e inicial, podemos pensar mais sobre ela depois #
+# Splash Screen básica e inicial, podemos pensar mais sobre ela depois #
