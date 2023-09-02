@@ -1,30 +1,24 @@
-import pygame
+import time
+import os
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+def splash_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("+------------------------------------------------+")
+    print("|              BEM VINDO AO INFERNO!             |")
+    print("|                                                |")
+    print("|               Um Jogo Roguelike                |")
+    print("|                                                |")
+    print("|       Aperte qualquer tecla para jogar         |")
+    print("+------------------------------------------------+")
+    
+    input()
 
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('ROGUE - SPLASHSCREEN')
+def main():
+    splash_screen()
+    # Aqui começa o código principal do seu jogo
+    print("BEM-VINDO AO INFERNO!")
+    # ...
 
-def show_splash():
-    font = pygame.font.Font(None, 74)
-    text = font.render('ROGUE', True, (255, 255, 255))
-    text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+if __name__ == "__main__":
+    main()
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    running = False
-
-        screen.fill((0, 0, 0))
-        screen.blit(text, text_rect)
-        pygame.display.flip()
-
-    pygame.quit()
-
-show_splash()
