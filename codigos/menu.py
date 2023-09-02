@@ -2,7 +2,7 @@ def exibirmenu():
     print("\tAqui vem a splash\n")
     print('1. Jogar')
     print('2. Configurações')
-    print('3. Ranking')
+    print('3. Progresso')
     print('4. Sair')
 
 def escolhamenu():
@@ -22,7 +22,7 @@ def escolhamenu():
                 break
             elif opcao == 3:
                 cls.clear()
-                print('Ranking')
+                print('Progresso')
                 rk.exibir()
                 break
             elif opcao == 4:
