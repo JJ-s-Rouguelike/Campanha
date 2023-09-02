@@ -1,8 +1,5 @@
-import time
-import os
 
-def splash_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def splash():
     print("+------------------------------------------------+")
     print("|              BEM VINDO AO INFERNO!             |")
     print("|                                                |")
