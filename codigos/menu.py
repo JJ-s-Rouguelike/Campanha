@@ -22,7 +22,7 @@ def escolhamenu():
 
             if opcao == 1:
                 cls.clear()
-                print('Jogar')
+
                 gm.inicia()
                 break
             elif opcao == 2:
@@ -31,12 +31,12 @@ def escolhamenu():
                 break
             elif opcao == 3:
                 cls.clear()
-                print('Ranking')
+# já tem arqivo e fnc inicializadora
                 rk.exibir()
                 break
             elif opcao == 4:
                 cls.clear()
-                print('Sair')
+                print('Até mais!')
                 break
             else:
                 cls.clear()
@@ -58,6 +58,6 @@ splash = [
     "#   ## #   ##          #        #     # #     #  #  #  #  #     # #      #     #  #  #  #",
     " ####   ####     ######         #####    #####   #    ##   #####  ######  #####   #    ##"
 ]
-ss.splash_animtion(splash)
+#ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
 exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()

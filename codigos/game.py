@@ -1,6 +1,10 @@
 import curses
 
-def inicia(stdscr):
+def inicia():
+    curses.wrapper(movimento)
+
+
+def movimento(stdscr):
     curses.curs_set(0) 
     stdscr.nodelay(1) 
 
@@ -22,5 +26,3 @@ def inicia(stdscr):
         stdscr.clear()
         stdscr.addch(y, x, '@')
         stdscr.refresh()
-
-curses.wrapper(inicia)
