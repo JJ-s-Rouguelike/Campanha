@@ -1,5 +1,12 @@
-def exibirmenu():
+import SplashScreen_Rogue as ss
+import console as cls
+#import game
+import ranking as rk
+def exibirmenu(matriz):
     print("\tAqui vem a splash\n")
+
+    ss.splash_estatica(matriz)
+
     print('1. Jogar')
     print('2. Configurações')
     print('3. Ranking')
@@ -41,5 +48,14 @@ def escolhamenu():
 
 #Chamadas
 cls.clear()
-exibirmenu()    # precisa de uma primeira chamada
+
+splash = [
+    "    ##     ##  #    #####       #####   #     #  #     #   #####  ######  #####   #     #",
+    "    ##     ##  #   #            #     # #     #  ##    #  #       #      #     #  ##    #",
+    "    ##     ##     ######        #     # #     #  # #   #  #  #### #####  #     #  # #   #",
+    "#   ## #   ##          #        #     # #     #  #  #  #  #     # #      #     #  #  #  #",
+    " ####   ####     ######         #####    #####   #    ##   #####  ######  #####   #    ##"
+]
+ss.splash_animtion(splash)
+exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()
