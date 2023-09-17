@@ -3,9 +3,8 @@ import console as cls
 import game as gm
 import ranking as rk
 
-
 def exibirmenu(matriz):
-
+    
     ss.splash_estatica(matriz)
     print('\n')
     print('1. Jogar')
