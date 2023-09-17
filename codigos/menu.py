@@ -1,16 +1,18 @@
 import splash as ss
 import console as cls
-import game
+import game as gm
 import ranking as rk
+
+
 def exibirmenu(matriz):
-    print("\tAqui vem a splash\n")
 
     ss.splash_estatica(matriz)
-
+    print('\n')
     print('1. Jogar')
     print('2. Configurações')
     print('3. Ranking')
     print('4. Sair')
+    print('\n')
 
 def escolhamenu():
     while True:
@@ -21,7 +23,7 @@ def escolhamenu():
             if opcao == 1:
                 cls.clear()
                 print('Jogar')
-                game.inicia()
+                gm.inicia()
                 break
             elif opcao == 2:
                 cls.clear()
@@ -38,12 +40,12 @@ def escolhamenu():
                 break
             else:
                 cls.clear()
-                exibirmenu()
+                exibirmenu(splash)
                 print("Opção inválida. Tente novamente.")
 
         except ValueError:
             cls.clear()
-            exibirmenu()
+            exibirmenu(splash)
             print("Digite um número válido. Tente novamente.")
 
 #Chamadas

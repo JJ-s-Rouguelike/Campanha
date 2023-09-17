@@ -1,5 +1,6 @@
 import os
 import time
+import console as cls
 
 def splash_animtion(matriz):
     height = len(matriz)
@@ -15,7 +16,7 @@ def splash_animtion(matriz):
     for colunas in range(1, width+1):
         imprimir_caracteres(colunas)
         time.sleep(0.05)
-        os.system('cls' if os.name == 'nt' else 'clear')
+        cls.clear()
 
 
 

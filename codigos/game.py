@@ -1,8 +1,8 @@
 import curses
 
-def main(stdscr):
-    curses.curs_set(0)  # Esconder o cursor
-    stdscr.nodelay(1)   # Fazer com que `getch` seja não bloqueante
+def inicia(stdscr):
+    curses.curs_set(0) 
+    stdscr.nodelay(1) 
 
     y, x = curses.LINES//2, curses.COLS//2
     stdscr.addch(y, x, '@')
@@ -23,4 +23,4 @@ def main(stdscr):
         stdscr.addch(y, x, '@')
         stdscr.refresh()
 
-curses.wrapper(main)
+curses.wrapper(inicia)
