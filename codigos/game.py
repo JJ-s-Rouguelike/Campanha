@@ -1,72 +1,26 @@
-import console as cls
-import os
-import random
+import curses
 
-def inicia():
-    cls.clear()
-    print('Bem vindo ao Inferno' )
-    print('Sobreviva!')
+def main(stdscr):
+    curses.curs_set(0)  # Esconder o cursor
+    stdscr.nodelay(1)   # Fazer com que `getch` seja não bloqueante
 
-WIDTH = 10
-HEIGHT = 10
-player = [0, 0]
-exit = [WIDTH-1, HEIGHT-1]
-enemy = [random.randint(0, WIDTH-1), random.randint(0, HEIGHT-1)]
+    y, x = curses.LINES//2, curses.COLS//2
+    stdscr.addch(y, x, '@')
 
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def draw_board():
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            if [x, y] == player:
-                print('@', end='')
-            elif [x, y] == exit:
-                print('E', end='')
-            elif [x, y] == enemy:
-                print('X', end='')
-            else:
-                print('.', end='')
-        print()
-
-def move(direction):
-    if direction == 'w' and player[1] > 0:
-        player[1] -= 1
-    elif direction == 's' and player[1] < HEIGHT - 1:
-        player[1] += 1
-    elif direction == 'a' and player[0] > 0:
-        player[0] -= 1
-    elif direction == 'd' and player[0] < WIDTH - 1:
-        player[0] += 1
-
-def move_enemy():
-    dx = player[0] - enemy[0]
-    dy = player[1] - enemy[1]
-    if abs(dx) > abs(dy):
-        if dx > 0:
-            enemy[0] += 1
-        elif dx < 0:
-            enemy[0] -= 1
-    else:
-        if dy > 0:
-            enemy[1] += 1
-        elif dy < 0:
-            enemy[1] -= 1
-
-def main():
     while True:
-        clear_screen()
-        draw_board()
+        key = stdscr.getch()
 
-        if player == exit:
-            print("Você ganhou!")
-            break
-        if player == enemy:
-            print("Você perdeu!")
-            break
+        if key == curses.KEY_UP:
+            y = max(y-1, 0)
+        elif key == curses.KEY_DOWN:
+            y = min(y+1, curses.LINES-1)
+        elif key == curses.KEY_LEFT:
+            x = max(x-1, 0)
+        elif key == curses.KEY_RIGHT:
+            x = min(x+1, curses.COLS-1)
 
-        direction = input("Mova-se com W, A, S, D: ").lower()
-        move(direction)
-        move_enemy()
+        stdscr.clear()
+        stdscr.addch(y, x, '@')
+        stdscr.refresh()
 
-main()
+curses.wrapper(main)

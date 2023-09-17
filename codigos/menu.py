@@ -1,6 +1,6 @@
-import SplashScreen_Rogue as ss
+import splash as ss
 import console as cls
-#import game
+import game
 import ranking as rk
 def exibirmenu(matriz):
     print("\tAqui vem a splash\n")
