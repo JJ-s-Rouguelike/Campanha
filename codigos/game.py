@@ -7,7 +7,7 @@ import keyboard
 
 def inicia():
     cls.clear()
-    print("tente fugir do lip 3!")
+    #a = input("tente fugir do lip 3!")
     curses.wrapper(movimento)
 
 def encontrar_posicoes_validas(mapa):
