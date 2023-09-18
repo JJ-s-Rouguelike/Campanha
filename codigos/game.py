@@ -30,6 +30,7 @@ def fase1(stdscr):
     # Configurando cores
     curses.start_color()
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
 
     posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
 
@@ -156,10 +157,6 @@ def contar_movimentos():
 #mp.printMap(mp.mapa1)
 #print(cf.player[0])
 
-# def adicionar_moedas_aleatorias(mapa):
-#     posicoes_validas = encontrar_posicoes_validas(mapa)
-#     for i, j in posicoes_validas:
-#         mapa[i] = mapa[i][:j] + 'G' + mapa[i][j+1:]
 
 def adicionar_moeda_aleatoria(mapa):
     posicoes_validas = encontrar_posicoes_validas(mapa)
@@ -173,4 +170,6 @@ def adicionar_moeda_aleatoria(mapa):
 def imprimir_moedas(stdscr, moedas):
     for moeda in moedas:
         i, j = moeda
-        stdscr.addch(i, j, ord('g'))
+        stdscr.attron(curses.color_pair(2))  # Ativa 
+        stdscr.addch(i, j, ord('g'))  
+        stdscr.attroff(curses.color_pair(2))  # Desativa 
