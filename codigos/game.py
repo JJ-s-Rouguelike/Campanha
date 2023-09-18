@@ -54,11 +54,14 @@ def movimento(stdscr):
         stdscr.clear()
 
         desenhar_mapa1(stdscr)
-        contar_movimentos()
+        
+        if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
+            y, x = novo_y, novo_x
+            contar_movimentos()  # Chama a função para contar os movimentos
 
         stdscr.addch(y, x, ord(cf.player[0]))
         stdscr.addstr(0, 8, "FASE 1")
-        stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, em {y} e {x}")
+        stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
         stdscr.refresh()
 
 
