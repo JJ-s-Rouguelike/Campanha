@@ -3,7 +3,7 @@ import console as cls
 import config as cf
 import curses
 import random
-import keyboard
+#import keyboard #Util, mas n gostei
 
 def inicia():
     #cls.clear()
@@ -19,6 +19,8 @@ def encontrar_posicoes_validas(mapa):
                 posicoes_validas.append((i, j))
 
     return posicoes_validas
+
+moedas = [] #Lista para as coordenadas das moedas
 
 ##############################################################################################################################################
 def fase1(stdscr):
@@ -66,8 +68,20 @@ def fase1(stdscr):
             y, x = novo_y, novo_x
 
         stdscr.clear()
+#coins
+        if cf.player[3] % 10 == 0 and cf.player[3] != 0:
+            posicao_moeda = adicionar_moeda_aleatoria(mp.mapa1.split('\n'))
+            if posicao_moeda:
+                moedas.append(posicao_moeda)
 
+        if (y, x) in moedas:
+            moedas.remove((y, x))
+            cf.player[1] += 1
+
+        #imprimir_moedas(stdscr, moedas)
+#coins
         desenhar_mapa1(stdscr)
+        imprimir_moedas(stdscr, moedas)
 
         if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
             imprimir_ponte(stdscr)
@@ -77,7 +91,12 @@ def fase1(stdscr):
             y, x = novo_y, novo_x
             contar_movimentos()  # Chama a função para contar os movimentos
 
+        # if cf.player[3] % 10 == 0:
+        #             adicionar_moedas_aleatorias(mp.mapa1.split('\n'))
+
         stdscr.addch(y, x, ord(cf.player[0]))
+        #stdscr.addch(2, 2, ord('g')) #Debug de gold
+        stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
         stdscr.addstr(0, 8, "FASE 1")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
@@ -136,3 +155,22 @@ def contar_movimentos():
 
 #mp.printMap(mp.mapa1)
 #print(cf.player[0])
+
+# def adicionar_moedas_aleatorias(mapa):
+#     posicoes_validas = encontrar_posicoes_validas(mapa)
+#     for i, j in posicoes_validas:
+#         mapa[i] = mapa[i][:j] + 'G' + mapa[i][j+1:]
+
+def adicionar_moeda_aleatoria(mapa):
+    posicoes_validas = encontrar_posicoes_validas(mapa)
+    if posicoes_validas:
+        i, j = random.choice(posicoes_validas)
+        mapa[i] = mapa[i][:j] + 'G' + mapa[i][j+1:]
+        return (i, j)
+    else:
+        return None
+
+def imprimir_moedas(stdscr, moedas):
+    for moeda in moedas:
+        i, j = moeda
+        stdscr.addch(i, j, ord('g'))
