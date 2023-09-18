@@ -1,6 +1,6 @@
 from colorama import Fore, Style, init
 
-def printMap(mapa):
+def printMap(mapa): #função para debug
     init(autoreset=True)  # Inicia o colorama
 
     for linha in mapa.split('\n'):
