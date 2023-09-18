@@ -97,7 +97,7 @@ def fase1(stdscr):
 
         stdscr.addch(y, x, ord(cf.player[0]))
         #stdscr.addch(2, 2, ord('g')) #Debug de gold
-        stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
+        #stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
         stdscr.addstr(0, 8, "FASE 1")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
