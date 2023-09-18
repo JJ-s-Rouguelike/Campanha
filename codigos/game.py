@@ -54,13 +54,15 @@ def movimento(stdscr):
         stdscr.clear()
 
         desenhar_mapa1(stdscr)
-        
-        if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
+
+
+        if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
             contar_movimentos()  # Chama a função para contar os movimentos
 
         stdscr.addch(y, x, ord(cf.player[0]))
         stdscr.addstr(0, 8, "FASE 1")
+        stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
         stdscr.refresh()
 
@@ -72,6 +74,18 @@ def desenhar_mapa1(stdscr):
                 stdscr.addch(i, j, ord(char), curses.color_pair(1) | curses.A_DIM)
             else:
                 stdscr.addch(i, j, ord(char))
+
+#Exemplo de como poeria ser pra chamar o mapa 2 a partir de 27, 27 e depoi ver como otar uma ponte 
+
+# def desenhar_mapa2(stdscr):
+#     for i, linha in enumerate(mp.mapa2.split('\n')):
+#         for j, char in enumerate(linha):
+#             if char == '#':
+#                 stdscr.addch(i+27, j+27, ord(char), curses.color_pair(1) | curses.A_DIM)
+#             else:
+#                 stdscr.addch(i+27, j+27, ord(char))
+# a chamada:
+#         desenhar_mapa2(stdscr)
 
 def contar_movimentos():
     cf.player[3] += 1
