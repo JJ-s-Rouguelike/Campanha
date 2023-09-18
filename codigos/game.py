@@ -8,7 +8,7 @@ import keyboard
 def inicia():
     #cls.clear()
     #a = input("tente fugir do lip 3!")
-    curses.wrapper(movimento)
+    curses.wrapper(fase1)
 
 def encontrar_posicoes_validas(mapa):
     posicoes_validas = []
@@ -20,7 +20,8 @@ def encontrar_posicoes_validas(mapa):
 
     return posicoes_validas
 
-def movimento(stdscr):
+##############################################################################################################################################
+def fase1(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(1)
 
@@ -34,9 +35,15 @@ def movimento(stdscr):
 
     stdscr.clear()
     stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
+
+    imprimir_ponte_flag = False
+
+#Loop do jogo, definir GameOver
+
     while True:
         key = stdscr.getch()
 
+# Setas, movimentação
         if key == curses.KEY_UP:
             novo_y, novo_x = max(y-1, 0), x
         elif key == curses.KEY_DOWN:
@@ -45,8 +52,15 @@ def movimento(stdscr):
             novo_y, novo_x = y, max(x-1, 0)
         elif key == curses.KEY_RIGHT:
            novo_y, novo_x = y, max(x+1, 0)
+ #Golpes          
+        elif key == ord('a') or key == ord('A'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
+            imprimir_ponte_flag = True
+            mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
+
         else:
             continue
+
+# Sessãoo de condições especiais do mapa
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
@@ -55,6 +69,9 @@ def movimento(stdscr):
 
         desenhar_mapa1(stdscr)
 
+        if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
+            imprimir_ponte(stdscr)
+            #imprimir_ponte_flag = False #Debug
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
@@ -65,6 +82,8 @@ def movimento(stdscr):
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
         stdscr.refresh()
+        #Fim do loop e da função
+##############################################################################################################################################
 
 
 def desenhar_mapa1(stdscr):
@@ -86,6 +105,31 @@ def desenhar_mapa1(stdscr):
 #                 stdscr.addch(i+27, j+27, ord(char))
 # a chamada:
 #         desenhar_mapa2(stdscr)
+
+def imprimir_ponte(stdscr):
+    ponte = mp.ponteVertical.strip().split('\n')  # Remove espaços extras e divide em linhas
+
+    for i, linha in enumerate(ponte):
+        for j, char in enumerate(linha):
+            if char == '#':
+                stdscr.addch(i+9, j+14, ord(char), curses.color_pair(1))
+            else:
+                stdscr.addch(i+9, j+14, ord(char))
+
+def injetar_ponte(mapa):
+    novo_mapa = mapa.copy()  # Cria uma cópia do mapa original para não modificá-lo diretamente
+    ponte = mp.ponteVertical.strip().split('\n')
+
+    for i, linha in enumerate(ponte):
+        for j, char in enumerate(linha):
+            if i + 9 >= len(novo_mapa):
+                novo_mapa.append('.' * len(novo_mapa[0]))  # Adiciona uma nova linha ao mapa se necessário
+            if j + 14 >= len(novo_mapa[i + 9]):
+                novo_mapa[i + 9] += ' ' * (j + 14 - len(novo_mapa[i + 9]) + 1)  # Adiciona pontos à linha se necessário
+            novo_mapa[i + 9] = novo_mapa[i + 9][:j + 14] + char + novo_mapa[i + 9][j + 15:]
+
+    return novo_mapa
+
 
 def contar_movimentos():
     cf.player[3] += 1
