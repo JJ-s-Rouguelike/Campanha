@@ -2,9 +2,10 @@
 
 
 # Dados Globais
-player = ['@', 0, '']
+player = ['@', 0, '', 0]
 
 # Acessando os atributos
 #icone = player[0]
 #gold = player[1]
 #nome = player[2]
+#movimentos = player[3]

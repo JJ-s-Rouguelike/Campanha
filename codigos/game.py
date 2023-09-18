@@ -6,7 +6,7 @@ import random
 import keyboard
 
 def inicia():
-    cls.clear()
+    #cls.clear()
     #a = input("tente fugir do lip 3!")
     curses.wrapper(movimento)
 
@@ -32,6 +32,8 @@ def movimento(stdscr):
 
     y, x = random.choice(posicoes_validas)
 
+    stdscr.clear()
+    stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
     while True:
         key = stdscr.getch()
 
@@ -51,18 +53,25 @@ def movimento(stdscr):
 
         stdscr.clear()
 
-        # Desenhando o mapa com cores e estilos
-        for i, linha in enumerate(mp.mapa1.split('\n')):
-            for j, char in enumerate(linha):
-                if char == '#':
-                    stdscr.addch(i, j, ord(char), curses.color_pair(1) | curses.A_DIM)
-                else:
-                    stdscr.addch(i, j, ord(char))
+        desenhar_mapa1(stdscr)
+        contar_movimentos()
 
         stdscr.addch(y, x, ord(cf.player[0]))
-
+        stdscr.addstr(0, 8, "FASE 1")
+        stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, em {y} e {x}")
         stdscr.refresh()
 
+
+def desenhar_mapa1(stdscr):
+    for i, linha in enumerate(mp.mapa1.split('\n')):
+        for j, char in enumerate(linha):
+            if char == '#':
+                stdscr.addch(i, j, ord(char), curses.color_pair(1) | curses.A_DIM)
+            else:
+                stdscr.addch(i, j, ord(char))
+
+def contar_movimentos():
+    cf.player[3] += 1
 
 #mp.printMap(mp.mapa1)
 #print(cf.player[0])

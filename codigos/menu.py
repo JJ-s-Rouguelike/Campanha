@@ -57,6 +57,6 @@ splash = [
     "#   ## #   ##          #        #     # #     #  #  #  #  #     # #      #     #  #  #  #",
     " ####   ####     ######         #####    #####   #    ##   #####  ######  #####   #    ##"
 ]
-ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+#ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
 exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()
