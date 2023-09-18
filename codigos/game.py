@@ -1,72 +1,68 @@
+import mapas as mp
 import console as cls
-import os
+import config as cf
+import curses
 import random
+import keyboard
 
 def inicia():
     cls.clear()
-    print('Bem vindo ao Inferno' )
-    print('Sobreviva!')
+    #a = input("tente fugir do lip 3!")
+    curses.wrapper(movimento)
 
-WIDTH = 10
-HEIGHT = 10
-player = [0, 0]
-exit = [WIDTH-1, HEIGHT-1]
-enemy = [random.randint(0, WIDTH-1), random.randint(0, HEIGHT-1)]
+def encontrar_posicoes_validas(mapa):
+    posicoes_validas = []
 
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    for i, linha in enumerate(mapa):
+        for j, char in enumerate(linha):
+            if char == '.':
+                posicoes_validas.append((i, j))
 
-def draw_board():
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            if [x, y] == player:
-                print('@', end='')
-            elif [x, y] == exit:
-                print('E', end='')
-            elif [x, y] == enemy:
-                print('X', end='')
-            else:
-                print('.', end='')
-        print()
+    return posicoes_validas
 
-def move(direction):
-    if direction == 'w' and player[1] > 0:
-        player[1] -= 1
-    elif direction == 's' and player[1] < HEIGHT - 1:
-        player[1] += 1
-    elif direction == 'a' and player[0] > 0:
-        player[0] -= 1
-    elif direction == 'd' and player[0] < WIDTH - 1:
-        player[0] += 1
+def movimento(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(1)
 
-def move_enemy():
-    dx = player[0] - enemy[0]
-    dy = player[1] - enemy[1]
-    if abs(dx) > abs(dy):
-        if dx > 0:
-            enemy[0] += 1
-        elif dx < 0:
-            enemy[0] -= 1
-    else:
-        if dy > 0:
-            enemy[1] += 1
-        elif dy < 0:
-            enemy[1] -= 1
+    # Configurando cores
+    curses.start_color()
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
 
-def main():
+    posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+
+    y, x = random.choice(posicoes_validas)
+
     while True:
-        clear_screen()
-        draw_board()
+        key = stdscr.getch()
 
-        if player == exit:
-            print("Você ganhou!")
-            break
-        if player == enemy:
-            print("Você perdeu!")
-            break
+        if key == curses.KEY_UP:
+            novo_y, novo_x = max(y-1, 0), x
+        elif key == curses.KEY_DOWN:
+            novo_y, novo_x = min(y+1, len(mp.mapa1.split('\n'))-2), x
+        elif key == curses.KEY_LEFT:
+            novo_y, novo_x = y, max(x-1, 0)
+        elif key == curses.KEY_RIGHT:
+           novo_y, novo_x = y, max(x+1, 0)
+        else:
+            continue
 
-        direction = input("Mova-se com W, A, S, D: ").lower()
-        move(direction)
-        move_enemy()
+        if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
+            y, x = novo_y, novo_x
 
-main()
+        stdscr.clear()
+
+        # Desenhando o mapa com cores e estilos
+        for i, linha in enumerate(mp.mapa1.split('\n')):
+            for j, char in enumerate(linha):
+                if char == '#':
+                    stdscr.addch(i, j, ord(char), curses.color_pair(1) | curses.A_DIM)
+                else:
+                    stdscr.addch(i, j, ord(char))
+
+        stdscr.addch(y, x, ord(cf.player[0]))
+
+        stdscr.refresh()
+
+
+#mp.printMap(mp.mapa1)
+#print(cf.player[0])

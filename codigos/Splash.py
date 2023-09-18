@@ -1,30 +1,27 @@
-import pygame
+import os
+import time
+import console as cls
+from colorama import Fore, Back, Style, init
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+# aparentemente prcisa iniciar o colorama pra forçar cores
+init()
 
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('ROGUE - SPLASHSCREEN')
+def splash_animtion(matriz):
+    height = len(matriz)
+    width = len(matriz[0])
 
-def show_splash():
-    font = pygame.font.Font(None, 74)
-    text = font.render('ROGUE', True, (255, 255, 255))
-    text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    def imprimir_caracteres(colunas):
+        for i in range(height):
+            linha = ""
+            for j in range(colunas):
+                linha += matriz[i][j]
+            print(Fore.YELLOW + linha + Style.RESET_ALL)
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    running = False
+    for colunas in range(1, width+1):
+        imprimir_caracteres(colunas)
+        time.sleep(0.05)
+        cls.clear()
 
-        screen.fill((0, 0, 0))
-        screen.blit(text, text_rect)
-        pygame.display.flip()
-
-    pygame.quit()
-
-show_splash()
+def splash_estatica(matriz):
+    for linha in matriz:
+        print(Fore.GREEN + linha + Style.RESET_ALL)
