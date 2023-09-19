@@ -5,6 +5,7 @@ import curses
 import random
 import time
 from colorama import Fore, Back, Style, init
+import ranking as rk
 
 #import keyboard #Util, mas n gostei
 
@@ -45,6 +46,8 @@ def fase1(stdscr):
     stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
 
     imprimir_ponte_flag = False
+    imprimir_mapa2_flag = False
+
 
 #Loop do jogo, definir GameOver
 
@@ -61,18 +64,34 @@ def fase1(stdscr):
         elif key == curses.KEY_RIGHT:
            novo_y, novo_x = y, max(x+1, 0)
  #Golpes          
-        elif key == ord('a') or key == ord('A'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
-            imprimir_ponte_flag = True
-            mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-            #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+        elif key == ord('w') or key == ord('W'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
+            # imprimir_ponte_flag = True
+            # mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
+            # #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+            novo_y, novo_x = max(y-2, 0), x
+        elif key == ord('s') or key == ord('S'):
+            novo_y, novo_x = min(y+2, len(mp.mapa1.split('\n'))-2), x
+        elif key == ord('a') or key == ord('A'):
+            novo_y, novo_x = y, max(x-2, 0)
+        elif key == ord('d') or key == ord('D'):
+           novo_y, novo_x = y, max(x+2, 0)
         else:
             continue
 
 # Sessãoo de condições especiais do mapa
 
+        if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
+            imprimir_ponte_flag = True
+            mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
+            if not imprimir_mapa2_flag:  # Verifica se o mapa 2 ainda não foi impresso
+                mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
+                imprimir_mapa2_flag = True  # Define a flag para True após a injeção do mapa 2
+
+
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
 
+        posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
         stdscr.clear()
 #coins
         if cf.player[3] % cf.rateMoeda == 0: #and cf.player[3] != 0:
@@ -99,7 +118,8 @@ def fase1(stdscr):
             if abs(i - y) <= 1 and abs(j - x) <= 1:
                 cf.player[4] -= 1  # Remove 1 da vida do jogador
                 if cf.player[4] == 0:
-                           stdscr.addstr(7, 27, "Você morreu =(")
+                           #stdscr.addstr(7, 27, "Você morreu =(")
+                           #time.sleep(1)
                            pass
                         #    time.sleep(3) #Debug
                         #    break
@@ -114,6 +134,7 @@ def fase1(stdscr):
         if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
             imprimir_ponte(stdscr)
             #imprimir_ponte_flag = False #Debug
+            imprimir_mapa2(stdscr)
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
@@ -141,17 +162,7 @@ def desenhar_mapa1(stdscr):
             else:
                 stdscr.addch(i, j, ord(char))
 
-#Exemplo de como poeria ser pra chamar o mapa 2 a partir de 27, 27 e depoi ver como otar uma ponte 
-
-# def desenhar_mapa2(stdscr):
-#     for i, linha in enumerate(mp.mapa2.split('\n')):
-#         for j, char in enumerate(linha):
-#             if char == '#':
-#                 stdscr.addch(i+27, j+27, ord(char), curses.color_pair(1) | curses.A_DIM)
-#             else:
-#                 stdscr.addch(i+27, j+27, ord(char))
-# a chamada:
-#         desenhar_mapa2(stdscr)
+#####
 
 def imprimir_ponte(stdscr):
     ponte = mp.ponteVertical.strip().split('\n')  # Remove espaços extras e divide em linhas
@@ -243,9 +254,38 @@ def youDied():
         print(Fore.RED + linha + Style.DIM)
 
     # Esperar 5 segundos
-    time.sleep(5)
+    time.sleep(1)
+    rk.nome = input("Digite seu nome: ")
+    time.sleep(1)
 
 
+    
+def injetar_mapa2(mapa):
+    novo_mapa = mapa.copy()
+    mapa2 = mp.mapa2.strip().split('\n')
+
+    for i, linha in enumerate(mapa2):
+        for j, char in enumerate(linha):
+            if i + 13 >= len(novo_mapa):
+                novo_mapa.append('.' * len(novo_mapa[0]))
+            if j >= len(novo_mapa[i + 13]):
+                novo_mapa[i + 13] += ' ' * (j - len(novo_mapa[i + 13]) + 1)
+            novo_mapa[i + 13] = novo_mapa[i + 13][:j] + char + novo_mapa[i + 13][j + 1:]
+
+    return novo_mapa
 
 
+def imprimir_mapa2(stdscr):
+    mapa2 = mp.mapa2.strip().split('\n')
 
+    for i, linha in enumerate(mapa2):
+        for j, char in enumerate(linha):
+            if char == '#':
+                stdscr.addch(i+13, j, ord(char), curses.color_pair(1))
+            else:
+                stdscr.addch(i+13, j, ord(char))
+
+
+    imprimir_moedas(stdscr, moedas)  # Adicione esta linha
+    imprimir_bats(stdscr, bats)
+    stdscr.refresh()

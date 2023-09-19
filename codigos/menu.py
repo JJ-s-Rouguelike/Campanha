@@ -26,6 +26,10 @@ def escolhamenu():
                 gm.inicia()
                 gm.youDied()
                 #time.sleep(5)
+                ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+                exibirmenu(splash)    # precisa de uma primeira chamada
+                escolhamenu()
+                
                 break
             elif opcao == 2:
                 cls.clear()
@@ -57,6 +61,15 @@ def exibirConfig(matriz):
     
     ss.splash_estatica(matriz)
     print('\n')
+
+    if cf.rateDificuldade == 0:
+        print("Dificldade atual: Fácil")
+    elif cf.rateDificuldade == 1:
+        print("Dificldade atual: Médio")
+    else:
+        print("Dificldade atual: Difícil")
+    
+    print('\n')
     print('1. Nivel facil: mais moedas, vida, stamina // menos inimigos, mapas')
     print('2. Nivel normal: jogo regular')
     print('3. Nivel dificil: menos moedas, vida, stamina // mais inimigos, mapas e névoa')
@@ -70,6 +83,10 @@ def escolhaConfig():
             opcao = int(input('Digite a sua opção:'))
 
             if opcao == 1:
+                cf.rateDificuldade = 0
+                cf.rateMoeda = 5
+                cf.rateMorcego = 20
+
                 print("Fácil selecionado")
                 time.sleep(3)
                 cls.clear()
@@ -77,6 +94,10 @@ def escolhaConfig():
                 escolhamenu()
                 break
             elif opcao == 2:
+                cf.rateDificuldade = 1
+                cf.rateMoeda = 10
+                cf.rateMorcego = 15
+
                 print("Médio selecionado")
                 time.sleep(3)
                 cls.clear()
@@ -84,7 +105,11 @@ def escolhaConfig():
                 escolhamenu()
                 break
             elif opcao == 3:
-                print("Fácil selecionado")
+                cf.rateDificuldade = 2
+                cf.rateMoeda = 15
+                cf.rateMorcego = 10
+
+                print("Difícil selecionado")
                 time.sleep(3)
                 cls.clear()
                 exibirmenu(splash) 
