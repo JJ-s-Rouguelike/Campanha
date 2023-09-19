@@ -61,14 +61,25 @@ def fase1(stdscr):
         elif key == curses.KEY_RIGHT:
            novo_y, novo_x = y, max(x+1, 0)
  #Golpes          
-        elif key == ord('a') or key == ord('A'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
-            imprimir_ponte_flag = True
-            mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-            #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+        elif key == ord('w') or key == ord('W'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
+            # imprimir_ponte_flag = True
+            # mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
+            # #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+            novo_y, novo_x = max(y-2, 0), x
+        elif key == ord('s') or key == ord('S'):
+            novo_y, novo_x = min(y+2, len(mp.mapa1.split('\n'))-2), x
+        elif key == ord('a') or key == ord('A'):
+            novo_y, novo_x = y, max(x-2, 0)
+        elif key == ord('d') or key == ord('D'):
+           novo_y, novo_x = y, max(x+2, 0)
         else:
             continue
 
 # Sessãoo de condições especiais do mapa
+
+        if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
+            imprimir_ponte_flag = True
+            mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
