@@ -3,6 +3,8 @@ import console as cls
 import config as cf
 import curses
 import random
+import time
+from colorama import Fore, Back, Style, init
 
 #import keyboard #Util, mas n gostei
 
@@ -46,7 +48,7 @@ def fase1(stdscr):
 
 #Loop do jogo, definir GameOver
 
-    while True:
+    while cf.player[4] > 0:
         key = stdscr.getch()
 
 # Setas, movimentação
@@ -73,7 +75,7 @@ def fase1(stdscr):
 
         stdscr.clear()
 #coins
-        if cf.player[3] % cf.rateMoeda == 0 and cf.player[3] != 0:
+        if cf.player[3] % cf.rateMoeda == 0: #and cf.player[3] != 0:
             posicao_moeda = adicionar_moeda_aleatoria(mp.mapa1.split('\n'))
             if posicao_moeda:
                 moedas.append(posicao_moeda)
@@ -99,6 +101,10 @@ def fase1(stdscr):
                 if cf.player[4] == 0:
                            stdscr.addstr(7, 27, "Você morreu =(")
                            pass
+                        #    time.sleep(3) #Debug
+                        #    break
+        
+
 #bats
         desenhar_mapa1(stdscr)
         imprimir_moedas(stdscr, moedas)
@@ -210,3 +216,36 @@ def imprimir_bats(stdscr, bats):
         stdscr.attron(curses.color_pair(3))  # Ativa a cor azul
         stdscr.addch(i, j, ord('b'))
         stdscr.attroff(curses.color_pair(3))  # Desativa a cor azul
+
+def youDied():
+    die = [
+        " #     #  #######  #     #           ######      #     #######  ######",
+        " #     #  #     #  #     #           #     #     #     #        #     #",
+        " #######  #     #  #     #           #     #     #     ####     #     #",
+        "       #  #     #  #     #           #     #     #     #        #     #",
+        " #######  #######  #######           ######      #     #######  ######"
+    ]
+
+    height = len(die)
+    width = len(die[0])
+
+    for colunas in range(1, width+1):
+        for i in range(height):
+            linha = ""
+            for j in range(colunas):
+                linha += die[i][j]
+            print(Fore.RED + linha + Style.DIM)
+        
+        time.sleep(0.05)
+        cls.clear()
+
+    for linha in die:
+        print(Fore.RED + linha + Style.DIM)
+
+    # Esperar 5 segundos
+    time.sleep(5)
+
+
+
+
+
