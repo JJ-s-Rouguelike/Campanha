@@ -152,17 +152,7 @@ def desenhar_mapa1(stdscr):
             else:
                 stdscr.addch(i, j, ord(char))
 
-#Exemplo de como poeria ser pra chamar o mapa 2 a partir de 27, 27 e depoi ver como otar uma ponte 
-
-# def desenhar_mapa2(stdscr):
-#     for i, linha in enumerate(mp.mapa2.split('\n')):
-#         for j, char in enumerate(linha):
-#             if char == '#':
-#                 stdscr.addch(i+27, j+27, ord(char), curses.color_pair(1) | curses.A_DIM)
-#             else:
-#                 stdscr.addch(i+27, j+27, ord(char))
-# a chamada:
-#         desenhar_mapa2(stdscr)
+#####
 
 def imprimir_ponte(stdscr):
     ponte = mp.ponteVertical.strip().split('\n')  # Remove espaços extras e divide em linhas

@@ -80,6 +80,8 @@ def escolhaConfig():
 
             if opcao == 1:
                 cf.rateDificuldade = 0
+                cf.rateMoeda = 5
+                cf.rateMorcego = 20
 
                 print("Fácil selecionado")
                 time.sleep(3)
@@ -89,6 +91,8 @@ def escolhaConfig():
                 break
             elif opcao == 2:
                 cf.rateDificuldade = 1
+                cf.rateMoeda = 10
+                cf.rateMorcego = 15
 
                 print("Médio selecionado")
                 time.sleep(3)
@@ -98,6 +102,8 @@ def escolhaConfig():
                 break
             elif opcao == 3:
                 cf.rateDificuldade = 2
+                cf.rateMoeda = 15
+                cf.rateMorcego = 10
 
                 print("Difícil selecionado")
                 time.sleep(3)
