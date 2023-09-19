@@ -1,5 +1,5 @@
 import console as cls
 
 def exibir ():
-  cls.clear()
-  print("o ranking é...")
+  #cls.clear()
+  print("\n\no ranking é...\n")

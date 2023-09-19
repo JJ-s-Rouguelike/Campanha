@@ -3,6 +3,7 @@ import console as cls
 import config as cf
 import curses
 import random
+
 #import keyboard #Util, mas n gostei
 
 def inicia():
@@ -21,16 +22,18 @@ def encontrar_posicoes_validas(mapa):
     return posicoes_validas
 
 moedas = [] #Lista para as coordenadas das moedas
-
+bats = []
 ##############################################################################################################################################
 def fase1(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(1)
 
-    # Configurando cores
+    #setando os conjuntos de cores
     curses.start_color()
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_BLUE, curses.COLOR_BLACK)  
+
 
     posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
 
@@ -59,7 +62,7 @@ def fase1(stdscr):
         elif key == ord('a') or key == ord('A'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
             imprimir_ponte_flag = True
             mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-
+            #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
         else:
             continue
 
@@ -70,19 +73,37 @@ def fase1(stdscr):
 
         stdscr.clear()
 #coins
-        if cf.player[3] % 10 == 0 and cf.player[3] != 0:
+        if cf.player[3] % cf.rateMoeda == 0 and cf.player[3] != 0:
             posicao_moeda = adicionar_moeda_aleatoria(mp.mapa1.split('\n'))
             if posicao_moeda:
                 moedas.append(posicao_moeda)
-
+    #Lógica
         if (y, x) in moedas:
             moedas.remove((y, x))
             cf.player[1] += 1
 
         #imprimir_moedas(stdscr, moedas)
 #coins
+
+#bats   
+        if cf.player[3] % cf.rateMorcego == 0 and cf.player[3] != 0:
+            posicao_bat = adicionar_bat_aleatorio(mp.mapa1.split('\n'))
+            if posicao_bat:
+                bats.append(posicao_bat)
+        
+    #lógica:
+        for bat in bats:
+            i, j = bat
+            if abs(i - y) <= 1 and abs(j - x) <= 1:
+                cf.player[4] -= 1  # Remove 1 da vida do jogador
+                if cf.player[4] == 0:
+                           stdscr.addstr(7, 27, "Você morreu =(")
+                           pass
+#bats
         desenhar_mapa1(stdscr)
         imprimir_moedas(stdscr, moedas)
+        imprimir_bats(stdscr, bats)
+
 
         if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
             imprimir_ponte(stdscr)
@@ -96,7 +117,7 @@ def fase1(stdscr):
         #             adicionar_moedas_aleatorias(mp.mapa1.split('\n'))
 
         stdscr.addch(y, x, ord(cf.player[0]))
-        #stdscr.addch(2, 2, ord('g')) #Debug de gold
+        #stdscr.addch(2, 2, ord('g')) #Debug de gold 
         #stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
         stdscr.addstr(0, 8, "Fuja do lip 3!")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
@@ -173,3 +194,19 @@ def imprimir_moedas(stdscr, moedas):
         stdscr.attron(curses.color_pair(2))  # Ativa 
         stdscr.addch(i, j, ord('g'))  
         stdscr.attroff(curses.color_pair(2))  # Desativa 
+
+def adicionar_bat_aleatorio(mapa):
+    posicoes_validas = encontrar_posicoes_validas(mapa)
+    if posicoes_validas:
+        i, j = random.choice(posicoes_validas)
+        mapa[i] = mapa[i][:j] + 'b' + mapa[i][j+1:]
+        return (i, j)
+    else:
+        return None
+
+def imprimir_bats(stdscr, bats):
+    for bat in bats:
+        i, j = bat
+        stdscr.attron(curses.color_pair(3))  # Ativa a cor azul
+        stdscr.addch(i, j, ord('b'))
+        stdscr.attroff(curses.color_pair(3))  # Desativa a cor azul
