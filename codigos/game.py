@@ -90,6 +90,7 @@ def fase1(stdscr):
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
 
+        posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
         stdscr.clear()
 #coins
         if cf.player[3] % cf.rateMoeda == 0: #and cf.player[3] != 0:
@@ -253,18 +254,18 @@ def youDied():
     # Esperar 5 segundos
     time.sleep(5)
 
-
+    
 def injetar_mapa2(mapa):
     novo_mapa = mapa.copy()
     mapa2 = mp.mapa2.strip().split('\n')
 
     for i, linha in enumerate(mapa2):
         for j, char in enumerate(linha):
-            if i + 1 >= len(novo_mapa):
+            if i + 13 >= len(novo_mapa):
                 novo_mapa.append('.' * len(novo_mapa[0]))
-            if j + 16 >= len(novo_mapa[i + 1]):
-                novo_mapa[i + 1] += ' ' * (j + 16 - len(novo_mapa[i + 1]) + 1)
-            novo_mapa[i + 1] = novo_mapa[i + 1][:j + 16] + char + novo_mapa[i + 1][j + 17:]
+            if j >= len(novo_mapa[i + 13]):
+                novo_mapa[i + 13] += ' ' * (j - len(novo_mapa[i + 13]) + 1)
+            novo_mapa[i + 13] = novo_mapa[i + 13][:j] + char + novo_mapa[i + 13][j + 1:]
 
     return novo_mapa
 
@@ -275,6 +276,7 @@ def imprimir_mapa2(stdscr):
     for i, linha in enumerate(mapa2):
         for j, char in enumerate(linha):
             if char == '#':
-                stdscr.addch(i+2, j+17, ord(char), curses.color_pair(1))
+                stdscr.addch(i+13, j, ord(char), curses.color_pair(1))
             else:
-                stdscr.addch(i+2, j+17, ord(char))
+                stdscr.addch(i+13, j, ord(char))
+
