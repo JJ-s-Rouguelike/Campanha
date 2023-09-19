@@ -24,6 +24,8 @@ def escolhamenu():
             if opcao == 1:
                 cls.clear()
                 gm.inicia()
+                gm.youDied()
+                #time.sleep(5)
                 break
             elif opcao == 2:
                 cls.clear()
