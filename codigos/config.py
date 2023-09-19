@@ -1,8 +1,10 @@
-# Estavamos pensando em adicionar três níveis de dificuldade, o volume dá música (podendo o jogador desativar a música)
-
+#import menu as mn # aqui dava um erro sinistro, pois:
+# menu.py importa game.py.
+# game.py importa config.py.
+# config.py importa menu.py.
 
 # Dados Globais
-player = ['@', 0, '', 0, 10, 5]
+player = ['@', 0, '', 0, 10, 5, False]
 
 # Acessando os atributos
 #icone = player[0]
@@ -10,4 +12,8 @@ player = ['@', 0, '', 0, 10, 5]
 #nome = player[2]
 #movimentos = player[3]
 #vida = player[4]
-#stamina = player[3]
+#stamina = player[5]
+#névoa = player[5]
+
+rateMoeda = 10
+rateMorcego = 20
