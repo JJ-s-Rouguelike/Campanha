@@ -280,3 +280,7 @@ def imprimir_mapa2(stdscr):
             else:
                 stdscr.addch(i+13, j, ord(char))
 
+
+    imprimir_moedas(stdscr, moedas)  # Adicione esta linha
+    imprimir_bats(stdscr, bats)
+    stdscr.refresh()
