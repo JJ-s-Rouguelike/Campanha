@@ -15,6 +15,6 @@ player = ['@', 0, '', 0, 10, 5, False]
 #stamina = player[5]
 #névoa = player[5]
 
-rateDificuldade = 0
-rateMoeda = 10
+rateDificuldade = 1#0
+rateMoeda = 1#0
 rateMorcego = 20

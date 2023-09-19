@@ -45,6 +45,8 @@ def fase1(stdscr):
     stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
 
     imprimir_ponte_flag = False
+    imprimir_mapa2_flag = False
+
 
 #Loop do jogo, definir GameOver
 
@@ -80,6 +82,10 @@ def fase1(stdscr):
         if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
             imprimir_ponte_flag = True
             mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
+            if not imprimir_mapa2_flag:  # Verifica se o mapa 2 ainda não foi impresso
+                mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
+                imprimir_mapa2_flag = True  # Define a flag para True após a injeção do mapa 2
+
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
@@ -125,6 +131,7 @@ def fase1(stdscr):
         if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
             imprimir_ponte(stdscr)
             #imprimir_ponte_flag = False #Debug
+            imprimir_mapa2(stdscr)
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
@@ -247,6 +254,27 @@ def youDied():
     time.sleep(5)
 
 
+def injetar_mapa2(mapa):
+    novo_mapa = mapa.copy()
+    mapa2 = mp.mapa2.strip().split('\n')
+
+    for i, linha in enumerate(mapa2):
+        for j, char in enumerate(linha):
+            if i + 2 >= len(novo_mapa):
+                novo_mapa.append('.' * len(novo_mapa[0]))
+            if j + 17 >= len(novo_mapa[i + 2]):
+                novo_mapa[i + 2] += ' ' * (j + 17 - len(novo_mapa[i + 2]) + 1)
+            novo_mapa[i + 2] = novo_mapa[i + 2][:j + 17] + char + novo_mapa[i + 2][j + 15:]
+
+    return novo_mapa
 
 
+def imprimir_mapa2(stdscr):
+    mapa2 = mp.mapa2.strip().split('\n')
 
+    for i, linha in enumerate(mapa2):
+        for j, char in enumerate(linha):
+            if char == '#':
+                stdscr.addch(i+2, j+17, ord(char), curses.color_pair(1))
+            else:
+                stdscr.addch(i+2, j+17, ord(char))
