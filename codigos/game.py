@@ -5,6 +5,7 @@ import curses
 import random
 import time
 from colorama import Fore, Back, Style, init
+import ranking as rk
 
 #import keyboard #Util, mas n gostei
 
@@ -117,7 +118,8 @@ def fase1(stdscr):
             if abs(i - y) <= 1 and abs(j - x) <= 1:
                 cf.player[4] -= 1  # Remove 1 da vida do jogador
                 if cf.player[4] == 0:
-                           stdscr.addstr(7, 27, "Você morreu =(")
+                           #stdscr.addstr(7, 27, "Você morreu =(")
+                           #time.sleep(1)
                            pass
                         #    time.sleep(3) #Debug
                         #    break
@@ -252,7 +254,10 @@ def youDied():
         print(Fore.RED + linha + Style.DIM)
 
     # Esperar 5 segundos
-    time.sleep(5)
+    time.sleep(1)
+    rk.nome = input("Digite seu nome: ")
+    time.sleep(1)
+
 
     
 def injetar_mapa2(mapa):

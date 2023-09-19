@@ -26,6 +26,10 @@ def escolhamenu():
                 gm.inicia()
                 gm.youDied()
                 #time.sleep(5)
+                ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+                exibirmenu(splash)    # precisa de uma primeira chamada
+                escolhamenu()
+                
                 break
             elif opcao == 2:
                 cls.clear()
@@ -140,7 +144,7 @@ splash = [
     "#   ## #   ##          #        #     # #     #  #  #  #  #     # #      #     #  #  #  #",
     " ####   ####     ######         #####    #####   #    ##   #####  ######  #####   #    ##"
 ]
-#ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
 exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()
 
