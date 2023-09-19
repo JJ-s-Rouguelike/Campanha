@@ -260,11 +260,11 @@ def injetar_mapa2(mapa):
 
     for i, linha in enumerate(mapa2):
         for j, char in enumerate(linha):
-            if i + 2 >= len(novo_mapa):
+            if i + 1 >= len(novo_mapa):
                 novo_mapa.append('.' * len(novo_mapa[0]))
-            if j + 17 >= len(novo_mapa[i + 2]):
-                novo_mapa[i + 2] += ' ' * (j + 17 - len(novo_mapa[i + 2]) + 1)
-            novo_mapa[i + 2] = novo_mapa[i + 2][:j + 17] + char + novo_mapa[i + 2][j + 15:]
+            if j + 16 >= len(novo_mapa[i + 1]):
+                novo_mapa[i + 1] += ' ' * (j + 16 - len(novo_mapa[i + 1]) + 1)
+            novo_mapa[i + 1] = novo_mapa[i + 1][:j + 16] + char + novo_mapa[i + 1][j + 17:]
 
     return novo_mapa
 
