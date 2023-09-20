@@ -70,9 +70,9 @@ def exibirConfig(matriz):
         print("Dificldade atual: Difícil")
     
     print('\n')
-    print('1. Nivel facil: mais moedas, vida, stamina // menos inimigos, mapas')
+    print('1. Nivel facil: mais moedas, vida,  // menos inimigos, mapas, preciosidade (valor do gold) stamina')
     print('2. Nivel normal: jogo regular')
-    print('3. Nivel dificil: menos moedas, vida, stamina // mais inimigos, mapas e névoa')
+    print('3. Nivel dificil: menos moedas, vida,  // mais inimigos, mapas, stamina, preciosidade e névoa!')
     print('4. voltar')
     print('\n')
 

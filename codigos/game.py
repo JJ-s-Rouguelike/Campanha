@@ -13,6 +13,29 @@ def inicia():
     #cls.clear()
     #a = input("tente fugir do lip 3!")
     curses.wrapper(fase1)
+    cf.player[1] = 0
+
+    if cf.rateDificuldade == 0:
+        cf.rateMoeda = 5
+        cf.rateMorcego = 20
+        cf.player[5] = 5
+        cf.player[4] = 10
+
+    elif cf.rateDificuldade == 1:
+        cf.rateMoeda = 10
+        cf.rateMorcego = 15
+        cf.player[5] = 7
+        cf.player[4] = 7
+
+    elif cf.rateDificuldade == 2:
+        cf.rateMoeda = 15
+        cf.rateMorcego = 10
+        cf.player[5] = 10
+        cf.player[4] = 5
+
+
+
+    
 
 def encontrar_posicoes_validas(mapa):
     posicoes_validas = []
@@ -101,7 +124,14 @@ def fase1(stdscr):
     #Lógica
         if (y, x) in moedas:
             moedas.remove((y, x))
-            cf.player[1] += 1
+            if cf.rateDificuldade == 0:
+                cf.player[1] += 1
+
+            elif cf.rateDificuldade == 1:
+                cf.player[1] += 1.5
+
+            elif cf.rateDificuldade == 2:
+                cf.player[1] += 2
 
         #imprimir_moedas(stdscr, moedas)
 #coins
