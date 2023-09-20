@@ -58,3 +58,9 @@ ponteVertical = '''
 #.#
 #.#
 '''
+
+ponteHorizontal = '''
+#######
+.......
+#######
+'''

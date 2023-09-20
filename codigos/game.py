@@ -28,7 +28,7 @@ def inicia():
         cf.player[4] = 7
 
     elif cf.rateDificuldade == 2:
-        cf.rateMoeda = 15
+        cf.rateMoeda = 1#5
         cf.rateMorcego = 10
         cf.player[5] = 10
         cf.player[4] = 5
@@ -70,6 +70,7 @@ def fase1(stdscr):
 
     imprimir_ponte_flag = False
     imprimir_mapa2_flag = False
+    imprimir_ponte2_flag = False
 
 
 #Loop do jogo, definir GameOver
@@ -106,9 +107,16 @@ def fase1(stdscr):
         if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
             imprimir_ponte_flag = True
             mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-            if not imprimir_mapa2_flag:  # Verifica se o mapa 2 ainda não foi impresso
+            if (not imprimir_mapa2_flag): 
                 mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
-                imprimir_mapa2_flag = True  # Define a flag para True após a injeção do mapa 2
+                imprimir_mapa2_flag = True  
+#para p2 m3
+        if (cf.player[1] >= 20) and cf.rateDificuldade == 2: 
+            imprimir_ponte2_flag = True
+            mp.mapa1 = '\n'.join(injetar_ponte2(mp.mapa1.split('\n')))
+            # if (not imprimir_mapa2_flag): 
+            #     mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
+            #     imprimir_mapa2_flag = True  
 
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
@@ -122,6 +130,9 @@ def fase1(stdscr):
             if posicao_moeda:
                 moedas.append(posicao_moeda)
     #Lógica
+        if not moedas:  # Verifica se a lista de moedas está vazia
+            moedas.append(posicao_moeda)
+
         if (y, x) in moedas:
             moedas.remove((y, x))
             if cf.rateDificuldade == 0:
@@ -161,10 +172,14 @@ def fase1(stdscr):
         imprimir_bats(stdscr, bats)
 
 
-        if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
+        if imprimir_ponte_flag:
             imprimir_ponte(stdscr)
             #imprimir_ponte_flag = False #Debug
             imprimir_mapa2(stdscr)
+#para p2 m3
+        if imprimir_ponte2_flag:
+            imprimir_ponte2(stdscr)
+            #imprimir_mapa3(stdscr) #pra depois
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
@@ -204,6 +219,16 @@ def imprimir_ponte(stdscr):
             else:
                 stdscr.addch(i+9, j+14, ord(char))
 
+def imprimir_ponte2(stdscr):
+    ponte = mp.ponteHorizontal.strip().split('\n')  # Remove espaços extras e divide em linhas
+
+    for i, linha in enumerate(ponte):
+        for j, char in enumerate(linha):
+            if char == '#':
+                stdscr.addch(i+17, j+24, ord(char), curses.color_pair(1))
+            else:
+                stdscr.addch(i+17, j+24, ord(char))
+
 def injetar_ponte(mapa):
     novo_mapa = mapa.copy()  # Cria uma cópia do mapa original para não modificá-lo diretamente
     ponte = mp.ponteVertical.strip().split('\n')
@@ -215,6 +240,20 @@ def injetar_ponte(mapa):
             if j + 14 >= len(novo_mapa[i + 9]):
                 novo_mapa[i + 9] += ' ' * (j + 14 - len(novo_mapa[i + 9]) + 1)  # Adiciona pontos à linha se necessário
             novo_mapa[i + 9] = novo_mapa[i + 9][:j + 14] + char + novo_mapa[i + 9][j + 15:]
+
+    return novo_mapa
+
+def injetar_ponte2(mapa):
+    novo_mapa = mapa.copy()  # Cria uma cópia do mapa original para não modificá-lo diretamente
+    ponte = mp.ponteHorizontal.strip().split('\n')
+
+    for i, linha in enumerate(ponte):
+        for j, char in enumerate(linha):
+            if i + 17 >= len(novo_mapa):
+                novo_mapa.append('.' * len(novo_mapa[0]))  # Adiciona uma nova linha ao mapa se necessário
+            if j + 24 >= len(novo_mapa[i + 17]):
+                novo_mapa[i + 17] += ' ' * (j + 24 - len(novo_mapa[i + 9]) + 1)  # Adiciona pontos à linha se necessário
+            novo_mapa[i + 17] = novo_mapa[i + 17][:j + 24] + char + novo_mapa[i + 17][j + 15:]
 
     return novo_mapa
 
