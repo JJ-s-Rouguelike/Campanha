@@ -208,7 +208,7 @@ def fase1(stdscr):
         stdscr.addch(y, x, ord(cf.player[0]))
         #stdscr.addch(2, 2, ord('g')) #Debug de gold 
         #stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
-        stdscr.addstr(0, 8, "Fuja do lip 3!")
+        stdscr.addstr(0, 0, "Fuja do lip 3!")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
         stdscr.refresh()
@@ -321,7 +321,7 @@ def youDied():
     # Esperar 5 segundos
     time.sleep(1)
     rk.nome = input("\nDigite seu nome: ")
-    print("Adicionado ao mural de Heróis!")
+    print("Adicionado ao mural de Formados!")
     time.sleep(1)
 
 
@@ -343,7 +343,7 @@ def injetar_mapa2(mapa):
 
 def imprimir_mapa2(stdscr):
     mapa2 = mp.mapa2.strip().split('\n')
-
+    stdscr.addstr(22, 0, "não há escapatória.")
     for i, linha in enumerate(mapa2):
         for j, char in enumerate(linha):
             if char == '#':
