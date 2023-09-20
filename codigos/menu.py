@@ -31,12 +31,8 @@ def escolhamenu():
                 mp.mapaDegeneration()
                 gm.inicia()
                 gm.youDied(cf.player[1])
-                #time.sleep(5)
-                # ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
-                # exibirmenu(splash)    # precisa de uma primeira chamada
-                # escolhamenu()
-                
                 break
+
             elif opcao == 2:
                 cls.clear()
                 exibirConfig(splash)
@@ -47,6 +43,7 @@ def escolhamenu():
 # já tem arqivo e fnc inicializadora
                 ss.splash_estatica(splash) #temporário
                 rk.exibir()
+#Retornar loop?
                 break
             elif opcao == 4:
                 cls.clear()
@@ -153,8 +150,3 @@ splash = [
 ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
 exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()
-
-
-########################################################################
-#chamadas da config
-########################################################################

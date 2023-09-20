@@ -14,7 +14,7 @@ def exibir():
         with open('ranking.txt', 'r') as arquivo:
             dados = [linha.strip().split(',') for linha in arquivo]
         
-        # Ordena os dados pelo ouro em ordem decrescente
+        # sorting dos dados pelo ouro em ordem decrescente
         dados_ordenados = sorted(dados, key=lambda x: int(x[3]), reverse=True)
 
         # Imprime o cabeçalho
@@ -22,7 +22,7 @@ def exibir():
         print("\n")
         for i, dado in enumerate(dados_ordenados[:10]):
             nome, dificuldade, movimentos, ouro = dado
-            # Converte o valor da dificuldade para o nome correspondente
+            # Converte o valor da dificuldade para o nome 
             dificuldade = ["Fácil", "Médio", "Difícil"][int(dificuldade)] #não entendi a dessa estrutura, mas acho ue funcionou
 
             ranking.append(dado)
