@@ -11,7 +11,7 @@ import sys
 #import keyboard #Util, mas n gostei
 
 # aqui elas ficam globais
-global imprimir_ponte_flag, imprimir_mapa2_flag  # bambiarra pa n er poblema com o mapa degenerar ao normal
+global imprimir_ponte_flag, imprimir_mapa2_flag  # gambiarra pa n er poblema com o mapa degenerar ao normal
 imprimir_ponte_flag = False 
 imprimir_mapa2_flag = False
 
@@ -20,8 +20,7 @@ flag2 = 0
 
 def inicia():
     global imprimir_ponte_flag, imprimir_mapa2_flag 
-    #cls.clear()
-    #a = input("tente fugir do lip 3!")
+
     curses.wrapper(fase1)
     cf.player[1] = 0
 
@@ -76,12 +75,6 @@ def fase1(stdscr):
     stdscr.clear()
     stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
 
-    # if flag1 == 0:
-    #     imprimir_ponte_flag = False
-    # if flag2 == 0:
-    #     imprimir_mapa2_flag = False
-
-
 #Loop do jogo, definir GameOver
 
     while cf.player[4] > 0:
@@ -102,11 +95,8 @@ def fase1(stdscr):
             novo_y, novo_x = y, max(x-1, 0)
         elif key == curses.KEY_RIGHT:
            novo_y, novo_x = y, max(x+1, 0)
- #Golpes          
-        elif key == (ord('w') or key == ord('W')) and cf.player[5] >= 1: #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
-            # imprimir_ponte_flag = True
-            # mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-            # #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
+ #dashes        
+        elif key == (ord('w') or key == ord('W')) and cf.player[5] >= 1: 
             novo_y, novo_x = max(y-2, 0), x
             cf.player[5] -= 1
             atacar_morcego(novo_y, novo_x)
@@ -127,15 +117,14 @@ def fase1(stdscr):
 
 # Sessãoo de condições especiais do mapa
 
-
-        if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
+#injeta ponte e mapa
+        if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2):
             imprimir_ponte_flag = True
             mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
-            if not imprimir_mapa2_flag:  # Verifica se o mapa 2 ainda não foi impresso
+            if not imprimir_mapa2_flag:
                 mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
-                imprimir_mapa2_flag = True  # Define a flag para True após a injeção do mapa 2
+                imprimir_mapa2_flag = True  
 
-        ##if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2):
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
@@ -180,15 +169,11 @@ def fase1(stdscr):
             if abs(i - y) <= 1 and abs(j - x) <= 1:
                 cf.player[4] -= 1  # Remove 1 da vida do jogador
                 if cf.player[4] == 0:
-                           curses.endwin()
+                           curses.endwin() #se n fechar o curses, da um bug sinistro
                            youDied(cf.player[1])
-                           #stdscr.addstr(7, 27, "Você morreu =(")
-                           #time.sleep(1)
                            pass
-                        #    time.sleep(3) #Debug
-                        #    break
         
-        if bats:  # Verifica se a lista de morcegos não está vazia
+        if bats:  # Verifica se a lista de morcegos não está vazia. if not bats, é o oposto
             mover_morcegos()
 
 #bats
@@ -197,17 +182,15 @@ def fase1(stdscr):
         imprimir_bats(stdscr, bats)
 
 
-        if imprimir_ponte_flag:  # Verifica se a ponte deve ser impressa
+        if imprimir_ponte_flag:  
             imprimir_ponte(stdscr)
-            #imprimir_ponte_flag = False #Debug
             imprimir_mapa2(stdscr)
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#': #pra restringir
             y, x = novo_y, novo_x
             contar_movimentos()  # Chama a função para contar os movimentos
 
-        # if cf.player[3] % 10 == 0:
-        #             adicionar_moedas_aleatorias(mp.mapa1.split('\n'))
+#Cabeçalhos
 
         stdscr.addch(y, x, ord(cf.player[0]))
         #stdscr.addch(2, 2, ord('g')) #Debug de gold 
@@ -236,7 +219,7 @@ def desenhar_mapa1(stdscr):
 #####
 
 def imprimir_ponte(stdscr):
-    ponte = mp.ponteVertical.strip().split('\n')  # Remove espaços extras e divide em linhas
+    ponte = mp.ponteVertical.strip().split('\n')  #esse metodo eh massa
 
     for i, linha in enumerate(ponte):
         for j, char in enumerate(linha):
@@ -293,10 +276,10 @@ def adicionar_bat_aleatorio(mapa):
         return None
 
 def imprimir_bats(stdscr, bats):
-    height, width = stdscr.getmaxyx()  # Obtém as dimensões da tela
+    height, width = stdscr.getmaxyx()  # Metodo que pbtém as dimensões da tela
     for bat in bats:
         i, j = bat
-        if 0 <= i < height and 0 <= j < width:  # Verifica se a posição está dentro dos limites da tela
+        if 0 <= i < height and 0 <= j < width:
             stdscr.attron(curses.color_pair(3))
             stdscr.addch(i, j, ord('b'))
             stdscr.attroff(curses.color_pair(3))
@@ -327,7 +310,7 @@ def youDied(ouro):
     for linha in die:
         print(Fore.RED + linha + Style.DIM)
 
-    # Esperar 5 segundos
+    # Esperar X segundos
     time.sleep(1)
     rk.nome = input("\nDigite seu nome: ")
     rk.salvar_ranking(rk.nome, cf.rateDificuldade, cf.player[3], ouro)
