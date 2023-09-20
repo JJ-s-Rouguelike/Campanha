@@ -6,6 +6,7 @@ import random
 import time
 from colorama import Fore, Back, Style, init
 import ranking as rk
+import sys
 
 #import keyboard #Util, mas n gostei
 
@@ -178,6 +179,8 @@ def fase1(stdscr):
             if abs(i - y) <= 1 and abs(j - x) <= 1:
                 cf.player[4] -= 1  # Remove 1 da vida do jogador
                 if cf.player[4] == 0:
+                           curses.endwin()
+                           youDied(cf.player[1])
                            #stdscr.addstr(7, 27, "Você morreu =(")
                            #time.sleep(1)
                            pass
@@ -208,7 +211,7 @@ def fase1(stdscr):
         stdscr.addch(y, x, ord(cf.player[0]))
         #stdscr.addch(2, 2, ord('g')) #Debug de gold 
         #stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
-        stdscr.addstr(0, 8, "Fuja do lip 3!")
+        stdscr.addstr(0, 0, "Fuja do lip 3!")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
         stdscr.refresh()
@@ -293,7 +296,7 @@ def imprimir_bats(stdscr, bats):
             stdscr.attroff(curses.color_pair(3))
 
 
-def youDied():
+def youDied(ouro):
     die = [
         " #     #  #######  #     #           ######      #     #######  ######",
         " #     #  #     #  #     #           #     #     #     #        #     #",
@@ -301,7 +304,7 @@ def youDied():
         "       #  #     #  #     #           #     #     #     #        #     #",
         " #######  #######  #######           ######      #     #######  ######"
     ]
-
+    #ouro = cf.player[1]
     height = len(die)
     width = len(die[0])
 
@@ -321,8 +324,10 @@ def youDied():
     # Esperar 5 segundos
     time.sleep(1)
     rk.nome = input("\nDigite seu nome: ")
-    print("Adicionado ao mural de Heróis!")
+    rk.salvar_ranking(rk.nome, cf.rateDificuldade, cf.player[3], ouro)
+    print("Adicionado ao mural de Formados!")
     time.sleep(1)
+    sys.exit()
 
 
     
@@ -343,7 +348,7 @@ def injetar_mapa2(mapa):
 
 def imprimir_mapa2(stdscr):
     mapa2 = mp.mapa2.strip().split('\n')
-
+    stdscr.addstr(22, 0, "não há escapatória.")
     for i, linha in enumerate(mapa2):
         for j, char in enumerate(linha):
             if char == '#':

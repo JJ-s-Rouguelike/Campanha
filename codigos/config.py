@@ -18,3 +18,5 @@ player = ['@', 0, '', 0, 10, 5, False]
 rateDificuldade = 0
 rateMoeda = 10
 rateMorcego = 20
+
+espolio = 0
