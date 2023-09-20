@@ -13,7 +13,7 @@ player = ['@', 0, '', 0, 10, 5, False]
 #movimentos = player[3]
 #vida = player[4]
 #stamina = player[5]
-#névoa = player[5]
+#névoa = player[6]
 
 rateDificuldade = 0
 rateMoeda = 10
