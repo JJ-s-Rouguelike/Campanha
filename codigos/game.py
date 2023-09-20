@@ -135,6 +135,7 @@ def fase1(stdscr):
                 mp.mapa1 = '\n'.join(injetar_mapa2(mp.mapa1.split('\n')))
                 imprimir_mapa2_flag = True  # Define a flag para True após a injeção do mapa 2
 
+        ##if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2):
 
         if mp.mapa1.split('\n')[novo_y][novo_x] != '#':
             y, x = novo_y, novo_x
@@ -210,7 +211,12 @@ def fase1(stdscr):
 
         stdscr.addch(y, x, ord(cf.player[0]))
         #stdscr.addch(2, 2, ord('g')) #Debug de gold 
-        #stdscr.addstr(2, 3, 'MMMMM') #Debug de mato
+        #stdscr.addstr(2, 3, 'MMMMM') #Debug de Mist
+        if cf.rateDificuldade == 2:
+            nevoa1(stdscr)
+        if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2):
+            nevoa2(stdscr)
+
         stdscr.addstr(0, 0, "Fuja do lip 3!")
         stdscr.addstr(5, 27, f"Gold: {cf.player[1]}, Vida: {cf.player[4]} Stamina: {cf.player[5]}")
         stdscr.addstr(0, 27, f"Número de Movimentos: {cf.player[3]}, COORDS: {y} e {x}")
@@ -388,3 +394,14 @@ def atacar_morcego(y, x):
                 cf.player[4] += 1.5  # Aumenta a vida em 1.5
 
     return bats
+
+def nevoa1(stdscr):
+    stdscr.addstr(2, 3, 'MMMMM')
+    stdscr.addstr(4, 13, 'MMMM')
+    stdscr.addstr(8, 2, 'MMMMMM')
+
+def nevoa2(stdscr):
+    stdscr.addstr(20, 3, 'MMMMM')
+    stdscr.addstr(16, 7, 'MMMM')
+    stdscr.addstr(20, 14, 'MMMMMM')
+    
