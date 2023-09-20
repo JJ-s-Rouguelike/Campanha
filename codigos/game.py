@@ -9,7 +9,16 @@ import ranking as rk
 
 #import keyboard #Util, mas n gostei
 
+# aqui elas ficam globais
+global imprimir_ponte_flag, imprimir_mapa2_flag  # bambiarra pa n er poblema com o mapa degenerar ao normal
+imprimir_ponte_flag = False 
+imprimir_mapa2_flag = False
+
+flag1 = 0
+flag2 = 0
+
 def inicia():
+    global imprimir_ponte_flag, imprimir_mapa2_flag 
     #cls.clear()
     #a = input("tente fugir do lip 3!")
     curses.wrapper(fase1)
@@ -34,9 +43,6 @@ def inicia():
         cf.player[4] = 5
 
 
-
-    
-
 def encontrar_posicoes_validas(mapa):
     posicoes_validas = []
 
@@ -51,6 +57,7 @@ moedas = [] #Lista para as coordenadas das moedas
 bats = []
 ##############################################################################################################################################
 def fase1(stdscr):
+    global imprimir_ponte_flag, imprimir_mapa2_flag
     curses.curs_set(0)
     stdscr.nodelay(1)
 
@@ -68,14 +75,22 @@ def fase1(stdscr):
     stdscr.clear()
     stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
 
-    imprimir_ponte_flag = False
-    imprimir_mapa2_flag = False
+    # if flag1 == 0:
+    #     imprimir_ponte_flag = False
+    # if flag2 == 0:
+    #     imprimir_mapa2_flag = False
 
 
 #Loop do jogo, definir GameOver
 
     while cf.player[4] > 0:
         key = stdscr.getch()
+
+#primeiro de tudo:
+        if not moedas:  #caso a lista de moedas fiqu vazia vazia
+            posicao_moeda = adicionar_moeda_aleatoria(mp.mapa1.split('\n'))
+            if posicao_moeda:
+                moedas.append(posicao_moeda)
 
 # Setas, movimentação
         if key == curses.KEY_UP:
@@ -87,21 +102,30 @@ def fase1(stdscr):
         elif key == curses.KEY_RIGHT:
            novo_y, novo_x = y, max(x+1, 0)
  #Golpes          
-        elif key == ord('w') or key == ord('W'): #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
+        elif key == (ord('w') or key == ord('W')) and cf.player[5] >= 1: #Aqui vai ser um golpe e a condição pra abrir o mapa 2 vai ser: 10g e/ou bats...
             # imprimir_ponte_flag = True
             # mp.mapa1 = '\n'.join(injetar_ponte(mp.mapa1.split('\n')))
             # #posicoes_validas = encontrar_posicoes_validas(mp.mapa1.split('\n'))
             novo_y, novo_x = max(y-2, 0), x
-        elif key == ord('s') or key == ord('S'):
+            cf.player[5] -= 1
+            atacar_morcego(novo_y, novo_x)
+        elif key == (ord('s') or key == ord('S')) and cf.player[5] >= 1:
             novo_y, novo_x = min(y+2, len(mp.mapa1.split('\n'))-2), x
-        elif key == ord('a') or key == ord('A'):
+            cf.player[5] -= 1
+            atacar_morcego(novo_y, novo_x)
+        elif key == (ord('a') or key == ord('A')) and cf.player[5] >= 1:
             novo_y, novo_x = y, max(x-2, 0)
-        elif key == ord('d') or key == ord('D'):
+            cf.player[5] -= 1
+            atacar_morcego(novo_y, novo_x)
+        elif key == (ord('d') or key == ord('D')) and cf.player[5] >= 1:
            novo_y, novo_x = y, max(x+2, 0)
+           cf.player[5] -= 1
+           atacar_morcego(novo_y, novo_x)
         else:
             continue
 
 # Sessãoo de condições especiais do mapa
+
 
         if (cf.player[1] >= 10) and (cf.rateDificuldade == 1 or cf.rateDificuldade == 2): #PONTE
             imprimir_ponte_flag = True
@@ -121,6 +145,12 @@ def fase1(stdscr):
             posicao_moeda = adicionar_moeda_aleatoria(mp.mapa1.split('\n'))
             if posicao_moeda:
                 moedas.append(posicao_moeda)
+        
+        if (cf.player[3] % 10 == 0) and (cf.player[3] != 0): #stamina apos turnos
+                cf.player[5] += 1
+        elif (cf.player[3] % 10 == 0) and (cf.player[3] != 0): #stamina apos moedas
+                cf.player[5] += 1
+
     #Lógica
         if (y, x) in moedas:
             moedas.remove((y, x))
@@ -154,6 +184,8 @@ def fase1(stdscr):
                         #    time.sleep(3) #Debug
                         #    break
         
+        if bats:  # Verifica se a lista de morcegos não está vazia
+            mover_morcegos()
 
 #bats
         desenhar_mapa1(stdscr)
@@ -252,11 +284,14 @@ def adicionar_bat_aleatorio(mapa):
         return None
 
 def imprimir_bats(stdscr, bats):
+    height, width = stdscr.getmaxyx()  # Obtém as dimensões da tela
     for bat in bats:
         i, j = bat
-        stdscr.attron(curses.color_pair(3))  # Ativa a cor azul
-        stdscr.addch(i, j, ord('b'))
-        stdscr.attroff(curses.color_pair(3))  # Desativa a cor azul
+        if 0 <= i < height and 0 <= j < width:  # Verifica se a posição está dentro dos limites da tela
+            stdscr.attron(curses.color_pair(3))
+            stdscr.addch(i, j, ord('b'))
+            stdscr.attroff(curses.color_pair(3))
+
 
 def youDied():
     die = [
@@ -285,7 +320,8 @@ def youDied():
 
     # Esperar 5 segundos
     time.sleep(1)
-    rk.nome = input("Digite seu nome: ")
+    rk.nome = input("\nDigite seu nome: ")
+    print("Adicionado ao mural de Heróis!")
     time.sleep(1)
 
 
@@ -319,3 +355,31 @@ def imprimir_mapa2(stdscr):
     imprimir_moedas(stdscr, moedas)  # Adicione esta linha
     imprimir_bats(stdscr, bats)
     stdscr.refresh()
+
+
+def mover_morcegos():
+    for i in range(len(bats)):
+        direcao = random.choice(['esquerda', 'cima', 'baixo', 'direita', 'cima', 'baixo'])  # Prioriza esquerda e direita
+
+        if direcao == 'cima':
+            novo_bat = (max(bats[i][0]-1, 0), bats[i][1])
+        elif direcao == 'baixo':
+            novo_bat = (min(bats[i][0]+1, len(mp.mapa1.split('\n'))-2), bats[i][1])
+        elif direcao == 'esquerda':
+            novo_bat = (bats[i][0], max(bats[i][1]-1, 0))
+        elif direcao == 'direita':
+            novo_bat = (bats[i][0], min(bats[i][1]+1, len(mp.mapa1.split('\n')[0])-1))
+
+        if mp.mapa1.split('\n')[novo_bat[0]][novo_bat[1]] == '.':  # Verifica se a nova posição é válida
+            bats[i] = novo_bat
+
+def atacar_morcego(y, x):
+    global bats
+
+    for i, (bat_y, bat_x) in enumerate(bats):
+        if abs(bat_y - y) <= 1 and abs(bat_x - x) <= 1:
+            bats.pop(i)
+            if cf.rateDificuldade == 0:
+                cf.player[4] += 1.5  # Aumenta a vida em 1.5
+
+    return bats

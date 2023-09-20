@@ -4,6 +4,7 @@ import game as gm
 import ranking as rk
 import config as cf
 import time
+import mapas as mp
 
 def exibirmenu(matriz):
     
@@ -23,12 +24,17 @@ def escolhamenu():
 
             if opcao == 1:
                 cls.clear()
+                gm.bats = []
+                gm.moedas = []
+                gm.flag1 = False
+                gm.flag2 = False
+                mp.mapaDegeneration()
                 gm.inicia()
                 gm.youDied()
                 #time.sleep(5)
-                ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
-                exibirmenu(splash)    # precisa de uma primeira chamada
-                escolhamenu()
+                # ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+                # exibirmenu(splash)    # precisa de uma primeira chamada
+                # escolhamenu()
                 
                 break
             elif opcao == 2:
@@ -70,9 +76,9 @@ def exibirConfig(matriz):
         print("Dificldade atual: Difícil")
     
     print('\n')
-    print('1. Nivel facil: mais moedas, vida,  // menos inimigos, mapas, preciosidade (valor do gold) stamina')
+    print('1. Nivel facil: mais moedas, vida,  // menos bats (eles dão vida), mapas, preciosidade (valor do gold) stamina')
     print('2. Nivel normal: jogo regular')
-    print('3. Nivel dificil: menos moedas, vida,  // mais inimigos, mapas, stamina, preciosidade e névoa!')
+    print('3. Nivel dificil: menos moedas, vida,  // mais bats, mapas, stamina, preciosidade e névoa!')
     print('4. voltar')
     print('\n')
 
@@ -144,7 +150,7 @@ splash = [
     "#   ## #   ##          #        #     # #     #  #  #  #  #     # #      #     #  #  #  #",
     " ####   ####     ######         #####    #####   #    ##   #####  ######  #####   #    ##"
 ]
-ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
+#ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
 exibirmenu(splash)    # precisa de uma primeira chamada
 escolhamenu()
 
