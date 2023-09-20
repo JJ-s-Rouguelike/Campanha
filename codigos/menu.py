@@ -30,7 +30,7 @@ def escolhamenu():
                 gm.flag2 = False
                 mp.mapaDegeneration()
                 gm.inicia()
-                gm.youDied()
+                gm.youDied(cf.player[1])
                 #time.sleep(5)
                 # ss.splash_animtion(splash) # animação, vou dexar comentado pa agilizar o debug
                 # exibirmenu(splash)    # precisa de uma primeira chamada

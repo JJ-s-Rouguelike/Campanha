@@ -6,6 +6,7 @@ import random
 import time
 from colorama import Fore, Back, Style, init
 import ranking as rk
+import sys
 
 #import keyboard #Util, mas n gostei
 
@@ -178,6 +179,8 @@ def fase1(stdscr):
             if abs(i - y) <= 1 and abs(j - x) <= 1:
                 cf.player[4] -= 1  # Remove 1 da vida do jogador
                 if cf.player[4] == 0:
+                           curses.endwin()
+                           youDied(cf.player[1])
                            #stdscr.addstr(7, 27, "Você morreu =(")
                            #time.sleep(1)
                            pass
@@ -293,7 +296,7 @@ def imprimir_bats(stdscr, bats):
             stdscr.attroff(curses.color_pair(3))
 
 
-def youDied():
+def youDied(ouro):
     die = [
         " #     #  #######  #     #           ######      #     #######  ######",
         " #     #  #     #  #     #           #     #     #     #        #     #",
@@ -301,7 +304,7 @@ def youDied():
         "       #  #     #  #     #           #     #     #     #        #     #",
         " #######  #######  #######           ######      #     #######  ######"
     ]
-
+    #ouro = cf.player[1]
     height = len(die)
     width = len(die[0])
 
@@ -321,8 +324,10 @@ def youDied():
     # Esperar 5 segundos
     time.sleep(1)
     rk.nome = input("\nDigite seu nome: ")
+    rk.salvar_ranking(rk.nome, cf.rateDificuldade, cf.player[3], ouro)
     print("Adicionado ao mural de Formados!")
     time.sleep(1)
+    sys.exit()
 
 
     
