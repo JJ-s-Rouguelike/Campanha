@@ -1,4 +1,4 @@
-## [JOGAR AGORA!](https://replit.com/@Vjfrib/Campanha?v=1)
+## Venha [JOGAR AGORA!](https://replit.com/@Vjfrib/Campanha?v=1)!
 
 ### Campanha - Dividir e reinar
 Repositório principal do jogo
