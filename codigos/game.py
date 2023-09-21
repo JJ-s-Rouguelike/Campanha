@@ -73,7 +73,12 @@ def fase1(stdscr):
     y, x = random.choice(posicoes_validas)
 
     stdscr.clear()
-    stdscr.addstr(0, 0, "Aperte alguma seta e sobreviva!")
+    stdscr.addstr(0, 0, "Instruções:")
+    stdscr.addstr(2, 0, "Setas: Movimntação")
+    stdscr.addstr(4, 0, "  w")
+    stdscr.addstr(5, 0, "A S D - Dashs")
+    stdscr.addstr(7, 0, "Com o dash, é possivel pular paredes e matar os morcegos")
+    stdscr.addstr(10, 0, "Para Iniciar, aperte alguma seta e sobreviva!")
 
 #Loop do jogo, definir GameOver
 
