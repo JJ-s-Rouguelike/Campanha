@@ -30,7 +30,9 @@ def escolhamenu():
                 gm.flag2 = False
                 mp.mapaDegeneration()
                 gm.inicia()
-                gm.youDied(cf.player[1])
+                cls.clear()
+                exibirmenu(splash)   
+                escolhamenu()    
                 break
 
             elif opcao == 2:
