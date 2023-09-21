@@ -43,7 +43,11 @@ def escolhamenu():
 # já tem arqivo e fnc inicializadora
                 ss.splash_estatica(splash) #temporário
                 rk.exibir()
-#Retornar loop?
+                loop = input("Aperte enter para voltar.")
+                opcao = 0
+                cls.clear()
+                exibirmenu(splash)   
+                escolhamenu()               
                 break
             elif opcao == 4:
                 cls.clear()

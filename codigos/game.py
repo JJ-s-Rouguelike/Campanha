@@ -320,7 +320,7 @@ def youDied(ouro):
     rk.nome = input("\nDigite seu nome: ")
     rk.salvar_ranking(rk.nome, cf.rateDificuldade, cf.player[3], ouro)
     print("Adicionado ao mural de Formados!")
-    time.sleep(1)
+    time.sleep(3)
     sys.exit()
 
 
