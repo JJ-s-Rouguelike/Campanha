@@ -24,6 +24,6 @@ Vinícius José Fernandes Ribeiro
 ---
 <!-- Discord: https://discord.gg/6JUqs9qe -->
 
-# agora, no replit e railway
+# Agora, no replit e railway
 
-## disponivel para [JOGAR AGORA!](https://replit.com/@Vjfrib/Campanha?v=1)
+## Disponivel para [JOGAR AGORA!](https://replit.com/@Vjfrib/Campanha?v=1)
