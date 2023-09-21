@@ -10,9 +10,9 @@ Submissão do script como parte do projeto para o 2nd EE da Disciplina de Fundam
 Submission of the script as part of the project for the 2nd exercice of the Fundamentals of Programming course, in the Computer Engineering undergraduate program at the University of Pernambuco POLI/UPE.
 
 ## Alunos
-Daniel Ramos Mendonça
-Rodrigo Campos de Oliveira Cabral
-Vinícius José Fernandes Ribeiro
+- Daniel Ramos Mendonça
+- Rodrigo Campos de Oliveira Cabral
+- Vinícius José Fernandes Ribeiro
 
 ## Referências:
 >[1] Dijkstra, E.W. "A Discipline of Programming". Prentice-Hall, 1976. 
